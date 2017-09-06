@@ -20,7 +20,8 @@ public slots:
     void onDisconnected();
     void onConnected();
 signals:
-    void updateClients(QString);
+    void updateClients(QString&, QByteArray&);
+    void disconnectFromServer();
 
 private:
     QString m_sReceivedData;

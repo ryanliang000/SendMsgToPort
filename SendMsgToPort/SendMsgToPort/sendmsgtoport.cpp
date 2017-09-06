@@ -8,18 +8,28 @@
 SendMsgToPort::SendMsgToPort(QWidget *parent)
     : QWidget(parent)
 {
+    // init ui
     ui.setupUi(this);
     ui.comboMsgType->insertItem(0, QString("Text"));
     ui.comboMsgType->insertItem(1, QString("Hex"));
+    ui.comboReplyShowType->insertItem(0, QString("Text"));
+    ui.comboReplyShowType->insertItem(1, QString("Hex"));
+    ui.editPort->setText(QString("28881"));
+    ui.textMessage->setText(QString::fromLocal8Bit("china-洛阳"));
+
+    // init tcp client
     m_pClient = new MyTcpClient();
 
+    // bind message
     connect(ui.btnSend, SIGNAL(clicked()), this, SLOT(onSendMessageClick()));
     connect(ui.btnConnect, SIGNAL(clicked()), this, SLOT(onConnect()));
     connect(ui.btnDisconnect, SIGNAL(clicked()), this, SLOT(onDisconnect()));
-    connect(m_pClient, SIGNAL(updateClients(QString)), this, SLOT(onReceiveMessage(QString)));
+    connect(m_pClient, SIGNAL(updateClients(QString&, QByteArray&)), this, SLOT(onReceiveMessage(QString&, QByteArray&)));
+    connect(ui.comboReplyShowType, SIGNAL(currentIndexChanged(int)), this, SLOT(onReplyShowTypeChange()));
+    connect(m_pClient, SIGNAL(disconnectFromServer()), this, SLOT(onDisconnect()));
     updateBtnState(false);
 
-    // 获取本地ip，并且不是虚拟机的ip, 找第一个
+    // get local ip, and find the first one
     QHostInfo info = QHostInfo::fromName(QHostInfo::localHostName());
     foreach(QHostAddress address, info.addresses())
     {
@@ -29,10 +39,6 @@ SendMsgToPort::SendMsgToPort(QWidget *parent)
             break;
         }
     }
-    
-    ui.editPort->setText(QString("28881"));
-
-    ui.textMessage->setText(QString::fromLocal8Bit("china-洛阳"));
 }
 
 SendMsgToPort::~SendMsgToPort()
@@ -85,10 +91,11 @@ void SendMsgToPort::onSendMessageClick()
     
 }
 
-void SendMsgToPort::onReceiveMessage(QString msg)
+void SendMsgToPort::onReceiveMessage(QString& msg, QByteArray& orgBtes)
 {
-
-    ui.textReply->setText(msg);
+    m_sLastReceiveMsg = msg;
+    m_sLastReceiveOrgBtes = orgBtes;
+    onReplyShowTypeChange();
 }
 
 void SendMsgToPort::onConnect()
@@ -123,4 +130,23 @@ void SendMsgToPort::updateBtnState(bool bIsConnect)
     ui.btnConnect->setDisabled(bIsConnect);
     ui.btnDisconnect->setDisabled(!bIsConnect);
     ui.btnSend->setDisabled(!bIsConnect);
+}
+
+void SendMsgToPort::onReplyShowTypeChange()
+{
+    switch(ui.comboReplyShowType->currentIndex())
+    {
+    case 0: // text
+        {
+            ui.textReply->setText(m_sLastReceiveMsg);
+        }
+        break;
+    case 1:
+        {
+            CTextHexDecode decode;
+            QString sText = decode.byteArrayToHex(m_sLastReceiveOrgBtes);
+            ui.textReply->setText(sText);
+        }
+        break;
+    }
 }
