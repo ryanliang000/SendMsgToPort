@@ -4,7 +4,7 @@ MyTcpClient::MyTcpClient(QObject *parent)
     : QTcpSocket(parent)
 {
     connect(this, SIGNAL(readyRead()), this, SLOT(onDataReceived()));
-    connect(this, SIGNAL(disconnect()), this, SLOT(onDisconnected()));
+    connect(this, SIGNAL(disconnected()), this, SLOT(onDisconnected()));
     connect(this, SIGNAL(connected()), this, SLOT(onConnected()));
 }
 
