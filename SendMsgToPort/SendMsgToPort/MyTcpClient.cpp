@@ -21,9 +21,10 @@ void MyTcpClient::onDataReceived()
     m_sReceivedData.clear();
 
     int nLen = bytesAvailable();
+    QByteArray sBytes;
     if (nLen <= 1024 * 1024)
     {
-        QByteArray sBytes = readAll();
+        sBytes = readAll();
         m_sReceivedData = QString::fromUtf8(sBytes, nLen);
 
     }
@@ -32,12 +33,13 @@ void MyTcpClient::onDataReceived()
         reset();
         m_sReceivedData = QString("Error: message to long (above 1 mb)!");
     }
-    emit updateClients(m_sReceivedData);
+    emit updateClients(m_sReceivedData, sBytes);
 }
 
 void MyTcpClient::onDisconnected()
 {
     qDebug("MyTcpClient::onDisconnected");
+    emit disconnectFromServer();
 }
 
 void MyTcpClient::onConnected()

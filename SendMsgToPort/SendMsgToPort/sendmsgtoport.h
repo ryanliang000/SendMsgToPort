@@ -16,13 +16,16 @@ public:
     void updateBtnState(bool bIsConnect);
 public slots:
     void onSendMessageClick();
-    void onReceiveMessage(QString msg);
+    void onReceiveMessage(QString& msg, QByteArray& orgBytes);
     void onConnect();
     void onDisconnect();
+    void onReplyShowTypeChange();
 
 private:
     Ui::SendMsgToPortClass ui;
     MyTcpClient* m_pClient;
+    QString m_sLastReceiveMsg;
+    QByteArray m_sLastReceiveOrgBtes;
 };
 
 #endif // SENDMSGTOPORT_H
