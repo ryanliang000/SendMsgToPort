@@ -90,7 +90,7 @@ QString CTextHexDecode::convertWCharToHex(wchar_t ch)
     char chLow = (ch & 0x00FF);
     return convertCharToHex(chLow) + convertCharToHex(chHigh);
 }
-QString CTextHexDecode::byteArrayToHex(QByteArray& bytArray)
+QString CTextHexDecode::byteArrayToHex(const QByteArray& bytArray)
 {
     QString sReturnText;
     for (int i=0; i<bytArray.length(); i++)
@@ -100,7 +100,7 @@ QString CTextHexDecode::byteArrayToHex(QByteArray& bytArray)
     return sReturnText;
 }
 
-QString CTextHexDecode::wstringToHex(std::wstring& str)
+QString CTextHexDecode::wstringToHex(const std::wstring& str)
 {
     QString sReturnText;
     for (size_t i=0; i<str.length(); i++)
