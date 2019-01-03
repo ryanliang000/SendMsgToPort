@@ -4,6 +4,8 @@
 #include <QtWidgets/QWidget>
 #include "ui_sendmsgtoport.h"
 #include "MyTcpClient.h"
+#include "MyUdpClient.h"
+#include "qbytearray.h"
 
 class SendMsgToPort : public QWidget
 {
@@ -20,10 +22,19 @@ public slots:
     void onConnect();
     void onDisconnect();
     void onReplyShowTypeChange();
+    void onMsgTypeChange();
+    void onProtocolTypeChange();
+
+private:
+    void sendTcpMsg(QByteArray sBytes);
+    void sendUdpMsg(QByteArray sBytes);
+    void sendSslMsg(QByteArray sBytes);
 
 private:
     Ui::SendMsgToPortClass ui;
-    MyTcpClient* m_pClient;
+    MyTcpClient* m_pTcpClient;
+    MySslClient* m_pSslClient;
+    MyUdpClient* m_pUdpClient;
     QString m_sLastReceiveMsg;
     QByteArray m_sLastReceiveOrgBtes;
 };
