@@ -1,2 +1,6 @@
 # SendMsgToPort
-Send text message or hex message to port, using TCP protocol.
+Send text or hex message to port, support protocol:
+1. Tcp
+2. Udp
+3. SSL(Tcp)
+
