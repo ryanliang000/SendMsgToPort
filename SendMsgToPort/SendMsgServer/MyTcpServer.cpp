@@ -14,7 +14,7 @@ MyTcpServer::~MyTcpServer(void)
 
 }
 
-void MyTcpServer::incomingConnection(int socketDescriptor)
+void MyTcpServer::incomingConnection(qintptr socketDescriptor)
 {
     MyDebugVar2("MyTcpServer::incomingConnection", socketDescriptor);
 

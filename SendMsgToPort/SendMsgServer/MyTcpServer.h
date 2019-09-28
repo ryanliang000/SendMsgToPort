@@ -23,7 +23,7 @@ public slots:
     void slotDisconneted(qintptr);
 
 protected:
-    void incomingConnection(int socketDescriptor);
+	virtual void incomingConnection(qintptr socketDescriptor);
 
 private:
     int m_nPort;
