@@ -22,7 +22,7 @@ public slots:
      void onClear();
      void onAddReceiveMessage(QString sData);
      void onAddReplyMessage(QString sData);
-     void onTreeClick();
+
 private:
     Ui::dlgOption ui;
     HistoryModel* m_pModel;
