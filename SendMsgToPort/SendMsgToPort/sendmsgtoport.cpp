@@ -19,7 +19,7 @@ SendMsgToPort::SendMsgToPort(QWidget *parent)
     ui.comboProtocol->insertItem(2, QString("SSL(TCP) "));
 
     ui.editPort->setText(QString("28881"));
-    ui.textMessage->setText(QString::fromUtf8("hello-\xE6\xB4\x9B\xE9\x98\xB3"));
+    ui.textMessage->setText(QString::fromUtf8("hello"));
 
     // init tcp client
     m_pTcpClient = new MyTcpClient();

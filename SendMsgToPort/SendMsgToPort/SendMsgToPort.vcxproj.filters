@@ -62,6 +62,15 @@
     <ClCompile Include="TextHexDecode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MyUdpClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_MyUdpClient.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_MyUdpClient.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="sendmsgtoport.h">
@@ -74,6 +83,9 @@
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="MyTcpClient.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="MyUdpClient.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
