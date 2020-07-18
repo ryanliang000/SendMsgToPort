@@ -24,6 +24,7 @@ public slots:
     void onReplyShowTypeChange();
     void onMsgTypeChange();
     void onProtocolTypeChange();
+	void onAbout();
 
 private:
     void sendTcpMsg(QByteArray sBytes);
