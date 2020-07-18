@@ -4,6 +4,7 @@
 #include "TextHexDecode.h"
 #include "qhostinfo.h"
 #include "qmessagebox.h"
+#include "qdesktopservices.h"
 
 SendMsgToPort::SendMsgToPort(QWidget *parent)
     : QWidget(parent)
@@ -40,6 +41,7 @@ SendMsgToPort::SendMsgToPort(QWidget *parent)
     connect(m_pSslClient, SIGNAL(updateClients(QString&, QByteArray&)), this, SLOT(onReceiveMessage(QString&, QByteArray&)));
     connect(m_pSslClient, SIGNAL(disconnectFromServer()), this, SLOT(onDisconnect()));
     connect(m_pUdpClient, SIGNAL(updateClients(QString&, QByteArray&)), this, SLOT(onReceiveMessage(QString&, QByteArray&)));
+	connect(ui.About, SIGNAL(clicked()), this, SLOT(onAbout()));
     updateBtnState(false);
 
     // get local ip, and find the first one
@@ -52,6 +54,10 @@ SendMsgToPort::SendMsgToPort(QWidget *parent)
             break;
         }
     }
+}
+void SendMsgToPort::onAbout()
+{
+	QDesktopServices::openUrl(QUrl(QLatin1String("https://github.com/rainliang000/SendMsgToPort")));
 }
 
 SendMsgToPort::~SendMsgToPort()
