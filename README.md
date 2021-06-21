@@ -4,3 +4,5 @@ Send text or hex message to port, support protocol:
 2. Udp
 3. SSL(Tcp)
 
+
+Apache License
